@@ -62,7 +62,7 @@ const RegisterForm = () => {
       <h1 className={classes.header}>ConGas Vendor Survey Form</h1>
       <form className={classes.form} onSubmit={registerHandler}>
         <div className={classes.control}>
-          <label htmlFor='name'>Name</label>
+          <label htmlFor='name'>Company Name</label>
           <input
           required
             type='text'
