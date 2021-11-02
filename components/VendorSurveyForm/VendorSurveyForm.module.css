@@ -14,6 +14,7 @@
     border-radius: 10px;
     width:clamp(15rem, 90vw, 25rem);
     margin: 0 auto;
+    margin-bottom: 3vh;
     box-shadow: 0 4px 10px rgba(0,0,0,0.15),0 2px 8px rgba(0,0,0,0.25);
 }
 
