@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import classes from './VendorSurveyForm.module.css';
-import { stringify } from 'flatted';
+import Modal from '../UI/Modal/Modal';
 
-const RegisterForm = () => {
+const RegisterForm = (props) => {
   const [isLoading, setIsLoading] = useState(false);
 
   const initialRegister = {
@@ -14,6 +14,15 @@ const RegisterForm = () => {
   const [register, setRegister] = useState(initialRegister);
   const [error, setError] = useState('');
   const [message, setMessage] = useState('');
+  const [showModal, setShowModal] = useState(false);
+
+  const showModalHandler = () => {
+    setShowModal(true);
+  };
+
+  const hideModalHandler = () => {
+    setShowModal(false);
+  };
 
   const handleChange = (e) => {
     setRegister({ ...register, [e.target.name]: e.target.value });
@@ -22,6 +31,7 @@ const RegisterForm = () => {
   const registerHandler = async (e) => {
     e.preventDefault();
     setIsLoading(true);
+    setShowModal(false);
 
     // post structure
     let post = {
@@ -38,9 +48,7 @@ const RegisterForm = () => {
       method: 'POST',
       body: JSON.stringify(post),
     });
-    // setRegister(initialRegister);
-    // setIsLoading(false);
-    // // get the data
+    // get the data
     let data = await response.json();
     // console.log(data);
 
@@ -48,7 +56,7 @@ const RegisterForm = () => {
       // reset the fields
       setIsLoading(false);
       setRegister(initialRegister);
-
+      setShowModal(true);
       // set the message
       return setMessage(data.message);
     } else {
@@ -59,12 +67,17 @@ const RegisterForm = () => {
 
   return (
     <>
+      {showModal && (
+        <Modal onCloseModal={props.onClose}>
+          {showModal && <p onClose={hideModalHandler}>Modal</p>}
+        </Modal>
+      )}
       <h1 className={classes.header}>ConGas Vendor Survey Form</h1>
       <form className={classes.form} onSubmit={registerHandler}>
         <div className={classes.control}>
           <label htmlFor='name'>Company Name</label>
           <input
-          required
+            required
             type='text'
             id='name'
             name='name'
@@ -75,7 +88,7 @@ const RegisterForm = () => {
         <div className={classes.control}>
           <label htmlFor='location'>Location</label>
           <input
-          required
+            required
             type='text'
             id='location'
             name='location'
@@ -104,7 +117,7 @@ const RegisterForm = () => {
             onChange={handleChange}>
             <option value=''>--Please choose working period--</option>
             <option value='Mon-Fri'>Mon-Fri</option>
-            <option value='Mon-Sun'>Mon-Sun</option>
+            <option value='24/7'>24/7</option>
           </select>
         </div>
         <div className={classes.register__btn}>
@@ -116,5 +129,6 @@ const RegisterForm = () => {
     </>
   );
 };
+
 
 export default RegisterForm;
