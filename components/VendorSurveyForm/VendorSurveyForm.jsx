@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import classes from './VendorSurveyForm.module.css';
 import Modal from '../UI/Modal/Modal';
 
@@ -10,11 +10,20 @@ const RegisterForm = (props) => {
     location: '',
     price: '',
     workingDays: '',
+    lat: '',
+    long: ''
   };
+
   const [register, setRegister] = useState(initialRegister);
   const [error, setError] = useState('');
   const [message, setMessage] = useState('');
   const [showModal, setShowModal] = useState(false);
+
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition(function (position) {
+      setRegister({ ...register, lat: position.coords.latitude, long: position.coords.longitude })
+    });
+  }, [])
 
   const showModalHandler = () => {
     setShowModal(true);
@@ -39,10 +48,11 @@ const RegisterForm = (props) => {
       price: register.price,
       location: register.location,
       workingDays: register.workingDays,
+      lat: register.lat,
+      long: register.long,
       createdAt: new Date().toISOString(),
     };
-
-    console.log(Object.values(post));
+    console.log(post);
     // save the post
     let response = await fetch('/api/vendor', {
       method: 'POST',
@@ -65,11 +75,13 @@ const RegisterForm = (props) => {
     }
   };
 
+  { showModal && setTimeout(() => { setShowModal(false) }, 1500) }
+
   return (
     <>
       {showModal && (
         <Modal onCloseModal={props.onClose}>
-          {showModal && <p onClose={hideModalHandler}>Modal</p>}
+          {showModal && <p className={classes.message} onClose={hideModalHandler}>{message}</p>}
         </Modal>
       )}
       <h1 className={classes.header}>ConGas Vendor Survey Form</h1>

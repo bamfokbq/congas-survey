@@ -1,67 +1,75 @@
-.header{
+.header {
     text-align: center;
     font-weight: 700;
     margin: 5vh auto;
-    background: -webkit-linear-gradient(var(--color-1),var(--color-2));
+    background: -webkit-linear-gradient(var(--color-1), var(--color-2));
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
-.form{
+.form {
     background: var(--white);
     padding: 2rem;
     border-radius: 10px;
-    width:clamp(15rem, 90vw, 25rem);
+    width: clamp(15rem, 90vw, 25rem);
     margin: 0 auto;
     margin-bottom: 3vh;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.15),0 2px 8px rgba(0,0,0,0.25);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15), 0 2px 8px rgba(0, 0, 0, 0.25);
 }
 
 
-.control{
+.control {
     display: flex;
     flex-direction: column;
     margin-bottom: 1.5vh;
 }
+
 .control input,
-.control select{
+.control select {
     padding: 0.3rem 0.2rem;
     font-size: 1.3rem;
     font-weight: 300;
     border: 0.15rem solid var(--background);
-    outline:none;
+    outline: none;
     border-radius: 10px;
     color: #747474;
 }
 
-.control label{
+.message {
+    text-align: center;
+    color: #347A1C;
+    font-weight: 400;
+}
+
+.control label {
     font-size: 1.2rem;
     color: var(--dark);
     opacity: 0.8;
     margin-bottom: 0.1rem
 }
 
-.control input:focus{
+.control input:focus {
     border: 0.15rem solid var(--color-2);
 }
-.register__btn button{
-      width: 100%;
-      padding: 0.7rem 0.2rem;
-      margin-top: 4vh;
-      border: none;
-      background: var(--color-2);
-      color: var(--white);
-      border-radius: 10px;
-      font-size: 1.3rem;
-      cursor: pointer;
-      outline: none;
+
+.register__btn button {
+    width: 100%;
+    padding: 0.7rem 0.2rem;
+    margin-top: 4vh;
+    border: none;
+    background: var(--color-2);
+    color: var(--white);
+    border-radius: 10px;
+    font-size: 1.3rem;
+    cursor: pointer;
+    outline: none;
 }
 
-.register__btn button:focus{
+.register__btn button:focus {
     outline: var(--color-1) 2px solid;
 }
 
 .register__btn button:hover {
-   opacity: 0.9;
+    opacity: 0.9;
 }
