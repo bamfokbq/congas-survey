@@ -23,7 +23,7 @@ const RegisterForm = (props) => {
     navigator.geolocation.getCurrentPosition(function (position) {
       setRegister({ ...register, lat: position.coords.latitude, long: position.coords.longitude })
     });
-  }, [])
+  }, [{ ...register }])
 
   const showModalHandler = () => {
     setShowModal(true);
