@@ -8,6 +8,7 @@ const RegisterForm = (props) => {
   const initialRegister = {
     name: '',
     location: '',
+    landmark: "",
     price: '',
     workingDays: '',
     lat: '',
@@ -23,7 +24,7 @@ const RegisterForm = (props) => {
     navigator.geolocation.getCurrentPosition(function (position) {
       setRegister({ ...register, lat: position.coords.latitude, long: position.coords.longitude })
     });
-  }, [{ ...register }])
+  }, [register])
 
   const showModalHandler = () => {
     setShowModal(true);
@@ -47,6 +48,7 @@ const RegisterForm = (props) => {
       name: register.name,
       price: register.price,
       location: register.location,
+      landmark: register.landmark,
       workingDays: register.workingDays,
       lat: register.lat,
       long: register.long,
@@ -87,7 +89,7 @@ const RegisterForm = (props) => {
       <h1 className={classes.header}>ConGas Vendor Survey Form</h1>
       <form className={classes.form} onSubmit={registerHandler}>
         <div className={classes.control}>
-          <label htmlFor='name'>Company Name</label>
+          <label htmlFor='name'>Gas Vendor Name</label>
           <input
             required
             type='text'
@@ -109,7 +111,18 @@ const RegisterForm = (props) => {
           />
         </div>
         <div className={classes.control}>
-          <label htmlFor='price'>Price</label>
+          <label htmlFor='landmark'>Closest Landmark</label>
+          <input
+            required
+            type='text'
+            id='landmark'
+            name='landmark'
+            value={register.landmark}
+            onChange={handleChange}
+          />
+        </div>
+        <div className={classes.control}>
+          <label htmlFor='price'>Base Rate Price</label>
           <input
             required
             type='number'
