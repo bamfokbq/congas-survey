@@ -28,11 +28,13 @@ const RegisterForm = (props) => {
   }
 
   useEffect(() => {
-    navigator.geolocation.getCurrentPosition(function (position) {
-      setVendorLat(position.coords.latitude)
-      setVendorLong(position.coords.longitude)
-    });
-  }, [])
+    if (vendorLat.length === 0 || vendorLong.length === 0) {
+      navigator.geolocation.getCurrentPosition(function (position) {
+        setVendorLat(position.coords.latitude)
+        setVendorLong(position.coords.longitude)
+      });
+    }
+  }, [vendorLat.length, vendorLong.length])
 
   const showModalHandler = () => {
     setShowModal(true);
