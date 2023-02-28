@@ -7,7 +7,7 @@ export async function addPost(req, res) {
     let { db } = await connectToDatabase();
     await db.collection('vendors').insertOne(JSON.parse(req.body));
     return res.json({
-      message: 'Post added successfully',
+      message: 'Vendor added successfully',
       success: true,
     });
   } catch (error) {

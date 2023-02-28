@@ -59,7 +59,7 @@ const RegisterForm = (props) => {
       long: vendorLong,
       createdAt: new Date().toISOString(),
     };
-    console.log(post);
+
     // save the post
     let response = await fetch('/api/vendor', {
       method: 'POST',
