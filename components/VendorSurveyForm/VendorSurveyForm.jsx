@@ -4,27 +4,35 @@ import Modal from '../UI/Modal/Modal';
 
 const RegisterForm = (props) => {
   const [isLoading, setIsLoading] = useState(false);
-
-  const initialRegister = {
-    name: '',
-    location: '',
-    landmark: "",
-    price: '',
-    workingDays: '',
-    lat: '',
-    long: ''
-  };
-
-  const [register, setRegister] = useState(initialRegister);
   const [error, setError] = useState('');
   const [message, setMessage] = useState('');
   const [showModal, setShowModal] = useState(false);
 
+
+  const [vendorName, setVendorName] = useState("")
+  const [vendorLocation, setVendorLocation] = useState("")
+  const [vendorPrice, setVendorPrice] = useState("")
+  const [vendorWorkingDays, setVendorWorkingDays] = useState("")
+  const [vendorLandmark, setVendorLandmark] = useState("")
+  const [vendorLat, setVendorLat] = useState("")
+  const [vendorLong, setVendorLong] = useState("")
+
+  const clearForm = () => {
+    setVendorName("")
+    setVendorLocation("")
+    setVendorPrice("")
+    setVendorWorkingDays("")
+    setVendorLandmark("")
+    setVendorLat("")
+    setVendorLong("")
+  }
+
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(function (position) {
-      setRegister({ ...register, lat: position.coords.latitude, long: position.coords.longitude })
+      setVendorLat(position.coords.latitude)
+      setVendorLong(position.coords.longitude)
     });
-  }, [register])
+  }, [])
 
   const showModalHandler = () => {
     setShowModal(true);
@@ -34,9 +42,6 @@ const RegisterForm = (props) => {
     setShowModal(false);
   };
 
-  const handleChange = (e) => {
-    setRegister({ ...register, [e.target.name]: e.target.value });
-  };
 
   const registerHandler = async (e) => {
     e.preventDefault();
@@ -45,13 +50,13 @@ const RegisterForm = (props) => {
 
     // post structure
     let post = {
-      name: register.name,
-      price: register.price,
-      location: register.location,
-      landmark: register.landmark,
-      workingDays: register.workingDays,
-      lat: register.lat,
-      long: register.long,
+      name: vendorName,
+      price: vendorPrice,
+      location: vendorLocation,
+      landmark: vendorLandmark,
+      workingDays: vendorWorkingDays,
+      lat: vendorLat,
+      long: vendorLong,
       createdAt: new Date().toISOString(),
     };
     console.log(post);
@@ -67,7 +72,7 @@ const RegisterForm = (props) => {
     if (data.success) {
       // reset the fields
       setIsLoading(false);
-      setRegister(initialRegister);
+      clearForm()
       setShowModal(true);
       // set the message
       return setMessage(data.message);
@@ -94,9 +99,8 @@ const RegisterForm = (props) => {
             required
             type='text'
             id='name'
-            name='name'
-            value={register.name}
-            onChange={handleChange}
+            value={vendorName}
+            onChange={(e) => setVendorName(e.target.value)}
           />
         </div>
         <div className={classes.control}>
@@ -105,9 +109,8 @@ const RegisterForm = (props) => {
             required
             type='text'
             id='location'
-            name='location'
-            value={register.location}
-            onChange={handleChange}
+            value={vendorLocation}
+            onChange={(e) => setVendorLocation(e.target.value)}
           />
         </div>
         <div className={classes.control}>
@@ -116,9 +119,8 @@ const RegisterForm = (props) => {
             required
             type='text'
             id='landmark'
-            name='landmark'
-            value={register.landmark}
-            onChange={handleChange}
+            value={vendorLandmark}
+            onChange={(e) => setVendorLandmark(e.target.value)}
           />
         </div>
         <div className={classes.control}>
@@ -127,9 +129,8 @@ const RegisterForm = (props) => {
             required
             type='number'
             id='price'
-            name='price'
-            value={register.price}
-            onChange={handleChange}
+            value={vendorPrice}
+            onChange={(e) => setVendorPrice(e.target.value)}
           />
         </div>
         <div className={classes.control}>
@@ -137,9 +138,8 @@ const RegisterForm = (props) => {
           <select
             required
             id='workingDays'
-            name='workingDays'
-            value={register.workingDays}
-            onChange={handleChange}>
+            value={vendorWorkingDays}
+            onChange={(e) => setVendorWorkingDays(e.target.value)}>
             <option value=''>--Please choose working period--</option>
             <option value='Mon-Fri'>Mon-Fri</option>
             <option value='24/7'>24/7</option>
