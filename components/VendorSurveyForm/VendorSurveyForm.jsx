@@ -50,6 +50,9 @@ const RegisterForm = (props) => {
     setIsLoading(true);
     setShowModal(false);
 
+    if (!navigator.geolocation) {
+      alert('Allow location')
+    }
     // post structure
     let post = {
       name: vendorName,
